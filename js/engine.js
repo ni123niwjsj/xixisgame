@@ -495,8 +495,10 @@ class GameEngine {
     // ============================================================
     screenToGrid(screenX, screenY) {
         const rect = this.canvas.getBoundingClientRect();
-        const x = (screenX - rect.left) / this.scale;
-        const y = (screenY - rect.top) / this.scale;
+        const scaleX = this.canvas.width / rect.width;
+        const scaleY = this.canvas.height / rect.height;
+        const x = (screenX - rect.left) * scaleX;
+        const y = (screenY - rect.top) * scaleY;
 
         const boardLeft = (CANVAS_WIDTH - BOARD_WIDTH) / 2 + BOARD_PADDING;
         const boardTop = 100 + BOARD_PADDING; // HUD高度100
@@ -545,13 +547,20 @@ class InputManager {
     }
 
     _onPointerDown(x, y) {
-        if (this.engine.state !== GAME_STATE.PLAYING) {
-            // 菜单/UI点击由 UI 处理
+        // 非游戏中状态：所有UI点击统一走 handleClick
+        if (this.engine.state === GAME_STATE.MENU ||
+            this.engine.state === GAME_STATE.LEVEL_SELECT ||
+            this.engine.state === GAME_STATE.WIN ||
+            this.engine.state === GAME_STATE.LOSE ||
+            this.engine.state === GAME_STATE.PAUSED) {
             if (this.engine.ui) {
                 this.engine.ui.handleClick(x, y);
             }
             return;
         }
+
+        // 动画中不响应操作
+        if (this.engine.state !== GAME_STATE.PLAYING) return;
 
         const cell = this.engine.screenToGrid(x, y);
         if (!cell) return;

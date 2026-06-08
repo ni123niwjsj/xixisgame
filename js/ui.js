@@ -550,9 +550,13 @@ class UIManager {
     // 点击处理
     // ============================================================
     handleClick(screenX, screenY) {
-        const rect = this.engine.canvas.getBoundingClientRect();
-        const x = (screenX - rect.left) / this.engine.scale;
-        const y = (screenY - rect.top) / this.engine.scale;
+        const canvas = this.engine.canvas;
+        const rect = canvas.getBoundingClientRect();
+        // 用画布实际渲染尺寸计算缩放，避免 scale 值不同步
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const x = (screenX - rect.left) * scaleX;
+        const y = (screenY - rect.top) * scaleY;
 
         for (const btn of this.buttons) {
             if (x >= btn.x && x <= btn.x + btn.w &&
