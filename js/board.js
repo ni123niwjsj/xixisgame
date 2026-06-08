@@ -427,10 +427,13 @@ class GameBoard {
         const bt = this.boardTop;
 
         // 棋盘背景
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
         ctx.beginPath();
         ctx.roundRect(bl, bt, BOARD_WIDTH, BOARD_HEIGHT, 12);
         ctx.fill();
+        ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
 
         // 棋盘格子
         for (let r = 0; r < ROWS; r++) {
@@ -438,9 +441,8 @@ class GameBoard {
                 const x = bl + BOARD_PADDING + c * cs;
                 const y = bt + BOARD_PADDING + r * cs;
 
-                // 格子底色
                 const isLight = (r + c) % 2 === 0;
-                ctx.fillStyle = isLight ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)';
+                ctx.fillStyle = isLight ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.04)';
                 ctx.beginPath();
                 ctx.roundRect(x + 1, y + 1, cs - 2, cs - 2, 6);
                 ctx.fill();

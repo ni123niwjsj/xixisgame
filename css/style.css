@@ -9,7 +9,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #1a0a2e;
+    background: #fce4ec;
     font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
     -webkit-tap-highlight-color: transparent;
     touch-action: none;
@@ -22,7 +22,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(180deg, #1a0a2e 0%, #2d1b69 50%, #1a0a2e 100%);
+    background: linear-gradient(180deg, #a8e6cf 0%, #fce4ec 50%, #f8bbd0 100%);
 }
 
 #game-canvas {
